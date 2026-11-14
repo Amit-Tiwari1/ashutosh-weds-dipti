@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <meta name="theme-color" content="#45101f"/>
+  <meta name="description" content="A royal, cinematic, and interactive wedding invitation for Ashutosh Srivastava and Dipti Srivastava."/>
+  <title>आशुतोष संग दीप्ती | भव्य शुभ विवाह निमंत्रण</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body class="invite-locked">
+
+  <!-- Interactive Particles & Rose Petals Canvas -->
+  <canvas id="petalsCanvas" aria-hidden="true"></canvas>
+
+  <!-- Interactive 3D Envelope Screen with Diya Lighting -->
+  <div class="opening-screen" id="openingScreen" role="dialog" aria-modal="true" aria-label="शुभ विवाह निमंत्रण पत्र">
+    <div class="opening-content">
+      
+      <!-- Interactive Diyas (Click to Light Up) -->
+      <div class="diya-wrapper">
+        <div class="diya left-diya unlit" id="leftDiya" onclick="lightDiya('leftDiya')" title="दीप प्रज्वलित करें">
+          <div class="flame"></div>
+          <div class="diya-bowl">🪔</div>
+          <!-- <span class="diya-text">दीप जलाएं</span> -->
+        </div>
+        <div class="opening-blessing">॥ श्री गणेशाय नमः ॥</div>
+        <div class="diya right-diya unlit" id="rightDiya" onclick="lightDiya('rightDiya')" title="दीप प्रज्वलित करें">
+          <div class="flame"></div>
+          <div class="diya-bowl">🪔</div>
+          <!-- <span class="diya-text">दीप जलाएं</span> -->
+        </div>
+      </div>
+
+      <div class="envelope-scene" id="envelopeOpenCard" role="button" tabindex="0" aria-label="निमंत्रण पत्र खोलें">
+        <div class="envelope-back"></div>
+        <div class="envelope-letter">
+          <div class="mini-om">卐</div>
+          <strong>Wedding Invitation</strong>
+          <span class="letter-couple">Ashutosh <em>Weds</em> Dipti</span>
+          <span class="letter-date">1–5 December 2026</span>
+          <span class="letter-open-hint">✦ Tap to open ✦</span>
+        </div>
+        <div class="envelope-front"></div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-seal">卐</div>
+      </div>
+      <h1 class="opening-title">The Invitation Card</h1>
+      <p class="opening-subtitle">स्नेही स्वजन, सपरिवार सादर आमंत्रित हैं</p>
+      <button class="open-invite-btn" id="openInviteButton" type="button">
+        पत्र खोलें / Open Invitation <span aria-hidden="true">✧</span>
+      </button>
+    </div>
+  </div>
+
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <!-- Top Sticky Navigation -->
+  <nav class="topnav" aria-label="Main Navigation">
+    <div class="navinner">
+      <a class="brand" href="#home" aria-label="मुखपृष्ठ">
+        <span class="brandmark">ॐ</span>
+        <span class="brandtext">Wedding Invitation<small>Ashutosh Weds Dipti</small></span>
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle Menu" aria-expanded="false" onclick="toggleMobileNav()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="navlinks" id="navLinks">
+        <a href="#home" onclick="closeMobileNav()">Home</a>
+        <a href="#countdown" onclick="closeMobileNav()">Countdown</a>
+        <a href="#curtain-stage" onclick="closeMobileNav()">Moments</a>
+        <a href="#karyakram" onclick="closeMobileNav()">Celebrations</a>
+        <a href="#parivar" onclick="closeMobileNav()">The Couple</a>
+        <a href="#cards" onclick="closeMobileNav()">Cards</a>
+        <a href="#blessings" onclick="closeMobileNav()">Wishes</a>
+        <a href="#wedding-location" onclick="closeMobileNav()">Venue Map</a>
+      </div>
+      <div class="navtools">
+        <button class="iconbtn" id="ambienceToggle" type="button" onclick="toggleAmbience()" title="Toggle Day/Night Mode">
+          ☀️
+        </button>
+        <button class="iconbtn" type="button" onclick="shareInvite()" aria-label="Share Invitation" title="Share">
+          <svg fill="none" height="18" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="18">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <path d="m8.7 10.7 6.6-4M8.7 13.3l6.6 4"></path>
+          </svg>
+        </button>
+        <button class="iconbtn" type="button" onclick="window.print()" aria-label="Print Page" title="Print">
+          <svg fill="none" height="18" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="18">
+            <path d="M7 8V3h10v5M7 17H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-3"></path>
+            <path d="M7 14h10v7H7zM18 11h.01"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Audio Source -->
+  <audio id="ganeshMantra" loop preload="none">
+    <source src="./assets/audio/ganesh-arti.mp3" type="audio/mpeg"/>
+  </audio>
+
+  <!-- Hero Section -->
+  <header class="hero poster-hero" id="home">
+    <div class="poster-hero-glow" aria-hidden="true"></div>
+    <div class="poster-hero-inner">
+      <p class="hero-top-ganesh">॥ श्री गणेशाय नमः ॥</p>
+      <div class="poster-hero-copy">
+        <div class="poster-kicker">✦ A KEEPSAKE OF OUR LOVE ✦</div>
+        <h1>Ashutosh <em>Weds</em> Dipti</h1>
+        <div class="poster-date"><span aria-hidden="true">✧</span> 1–5 DECEMBER 2026 <span aria-hidden="true">✧</span></div>
+      </div>
+      
+      <figure class="poster-hero-frame tilt-card" id="heroTiltCard">
+        <div class="shine-fx"></div>
+        <img src="./assets/images/AS1.png" alt="Ashutosh and Dipti Wedding Invitation" fetchpriority="high"/>
+      </figure>
+    </div>
+    <div class="scrollhint">Explore More ↓</div>
+  </header>
+
+  <main id="main">
+
+    <!-- Live Wedding Countdown Section -->
+    <section class="countdown-section" id="countdown" aria-label="शुभ विवाह उल्टी गिनती">
+      <div class="countdown-inner reveal">
+        <div class="countdown-tag">शुभ विवाह का पावन मुहुर्त</div>
+        <h3>Wedding Starts In</h3>
+        <div class="timer-display" id="weddingTimer">
+          <div class="time-block">
+            <span class="time-num" id="days">00</span>
+            <span class="time-label">Days</span>
+          </div>
+          <div class="time-sep">:</div>
+          <div class="time-block">
+            <span class="time-num" id="hours">00</span>
+            <span class="time-label">Hours</span>
+          </div>
+          <div class="time-sep">:</div>
+          <div class="time-block">
+            <span class="time-num" id="minutes">00</span>
+            <span class="time-label">Mins</span>
+          </div>
+          <div class="time-sep">:</div>
+          <div class="time-block">
+            <span class="time-num" id="seconds">00</span>
+            <span class="time-label">Secs</span>
+          </div>
+        </div>
+        <div class="calendar-btn-wrap">
+          <a class="btn-cal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ashutosh+Weds+Dipti+Wedding&dates=20261202T103000Z/20261202T183000Z&details=Shubh+Vivah+ceremony+of+Ashutosh+Srivastava+and+Dipti+Srivastava&location=Surya+Marriage+Hall,+Ahmane,+Prayagraj+Road,+Sultanpur" target="_blank" rel="noopener noreferrer">
+            📅 Add Shubh Vivah (02 Dec) to Google Calendar
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parallax 3D Curtain Stage Section -->
+    <section class="stage-section" id="curtain-stage">
+      <div class="curtain curtain-left" id="curtainLeft"></div>
+      <div class="curtain curtain-right" id="curtainRight"></div>
+      <div class="stage-content reveal">
+        <span class="stage-tag">✦ FOREVER & ALWAYS ✦</span>
+        <h2>स्नेह, संस्कार एवं बड़ों के शुभाशीर्वाद की पावन बेला</h2>
+        <div class="stage-avatar-wrap tilt-card">
+          <img src="./assets/images/couple-cartoon1.png" alt="Ashutosh and Dipti Couple Art" class="stage-avatar"/>
+        </div>
+        <p class="stage-quote">"प्रेम, विश्वास और समर्पण की नई यात्रा का शुभारंभ"</p>
+      </div>
+    </section>
+
+    <!-- Shlok Section -->
+    <section class="shubh-section" aria-label="मांगलिक श्लोक">
+      <div class="shubh-inner reveal">
+        <div class="shubh-ornament">卐 &nbsp; ॐ &nbsp; 卐</div>
+        <h3 class="shubh-mantra">॥ विघ्न हरण मंगल करन, श्री गणपति महाराज। ॥</h3>
+        <div class="shubh-divider"><span></span>✦<span></span></div>
+        <p class="shubh-verse">
+          प्रथम निमंत्रण आपको, पूरण कीजै काज।।<br/>
+          वक्रतुण्ड महाकाय सूर्यकोटि समप्रभः। निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा।।
+        </p>
+      </div>
+    </section>
+
+    <!-- Welcome Message -->
+    <section class="hindi-welcome section" aria-label="Wedding invitation welcome">
+      <div class="hindi-welcome-inner reveal">
+        <h2>सपरिवार सादर आमंत्रण</h2>
+        <p>
+          परमपिता परमेश्वर एवं श्री गणपति महाराज की असीम कृपा से आयोजित शुभ वैवाहिक कार्यक्रमों में आपकी गरिमामयी उपस्थिति सादर प्रार्थनीय है।
+        </p>
+      </div>
+    </section>
+
+    <!-- Events & Itinerary -->
+    <section class="section events-section" id="karyakram">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div class="overline">The celebrations</div>
+          <h2>The Wedding Celebrations</h2>
+          <p>Join us for the auspicious ceremonies and wedding celebrations from 1 to 5 December 2026.</p>
+        </div>
+
+        <div class="celebration-poster-wrap reveal tilt-card">
+          <div class="shine-fx"></div>
+          <img class="celebration-poster-art" src="./assets/images/plan-card1.png" alt="Matri Pujan on 1 Dec, Vivah on 2 Dec, Vidai on 3 Dec, Preetibhoj on 5 Dec" loading="lazy">
+        </div>
+
+        <div class="event-grid">
+          <article class="event reveal">
+            <div class="event-top">
+              <span class="event-number">1</span>
+              <span class="event-day">Tuesday</span>
+            </div>
+            <h3>मातृपूजन</h3>
+            <div class="event-date">
+              <svg fill="none" height="17" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="17"><rect height="16" rx="2" width="18" x="3" y="5"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>
+              1 December 2026
+            </div>
+            <p>मांगलिक मातृपूजन कार्यक्रम (वर निवास स्थान)।</p>
+          </article>
+
+          <article class="event reveal highlight-event">
+            <div class="event-top">
+              <span class="event-number">2</span>
+              <span class="event-day">Wednesday</span>
+            </div>
+            <h3>शुभ विवाह / Shubh Vivah</h3>
+            <div class="event-date">
+              <svg fill="none" height="17" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="17"><rect height="16" rx="2" width="18" x="3" y="5"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>
+              2 December 2026
+            </div>
+            <p>बारात प्रस्थान एवं शुभ पाणिग्रहण संस्कार (वैवाहिक स्थल: सूर्या मैरिज हॉल, सुल्तानपुर)।</p>
+          </article>
+
+          <article class="event reveal">
+            <div class="event-top">
+              <span class="event-number">3</span>
+              <span class="event-day">Thursday</span>
+            </div>
+            <h3>विदाई</h3>
+            <div class="event-date">
+              <svg fill="none" height="17" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="17"><rect height="16" rx="2" width="18" x="3" y="5"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>
+              3 December 2026
+            </div>
+            <p>वधू विदाई समारोह।</p>
+          </article>
+
+          <article class="event reveal highlight-event">
+            <div class="event-top">
+              <span class="event-number">4</span>
+              <span class="event-day">Saturday</span>
+            </div>
+            <h3>प्रीतिभोज</h3>
+            <div class="event-date">
+              <svg fill="none" height="17" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="17"><rect height="16" rx="2" width="18" x="3" y="5"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>
+              5 December 2026
+            </div>
+            <p>आगमन एवं स्नेह प्रीतिभोज (वर निवास स्थान)।</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Couple & Families Section -->
+    <section class="section family-section" id="parivar">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div class="overline">With blessings</div>
+          <h2>Meet the Couple</h2>
+          <p>With love and blessings from both families</p>
+        </div>
+
+        <div class="family-card reveal">
+          <div class="family-names">
+            <!-- Groom -->
+            <div class="person">
+              <span class="person-role">वर / Groom</span>
+              <div class="person-emblem" aria-hidden="true">✦</div>
+              <h3>चि० आशुतोष श्रीवास्तव</h3>
+              <p>
+                <strong>सुपौत्र:</strong> श्रीमती लुट्टन देवी एवं स्व० कृष्णचन्द्र लाल<br/>
+                <strong>सुपुत्र:</strong> श्रीमती नीलम श्रीवास्तव एवं श्री पवन कुमार श्रीवास्तव<br/>
+                ग्राम व पोस्ट – बासूपुर, जि० – सुलतानपुर
+              </p>
+            </div>
+
+            <div class="ornament" aria-hidden="true">❦</div>
+
+            <!-- Bride -->
+            <div class="person">
+              <span class="person-role">वधू / Bride</span>
+              <div class="person-emblem" aria-hidden="true">❀</div>
+              <h3>आयु० कु० दीप्ती श्रीवास्तव</h3>
+              <p>
+                <strong>सुपौत्री:</strong> श्रीमती रामपत्ती एवं स्व० ओमप्रकाश श्रीवास्तव<br/>
+                <strong>सुपुत्री:</strong> श्रीमती रसना श्रीवास्तव एवं श्री दिनेश कुमार श्रीवास्तव<br/>
+                ग्राम व पोस्ट – लोहरामऊ, जि० – सुलतानपुर
+              </p>
+            </div>
+          </div>
+
+          <div class="family-separator"></div>
+
+          <div class="bal-aagrah">
+            <strong>बाल आग्रह:</strong><br/>
+            "हल्दी है चन्दन है रिश्तों का बन्धन है, मेरे चाचा की शादी में आपका अभिनन्दन है।"<br/>
+            <em>— तमन्ना, नैतिक</em>
+          </div>
+
+          <div class="family-members-grid">
+            <div>
+              <strong>दर्शनाभिलाषी:</strong><br/>
+              श्री अशोक कुमार लाल, श्री इन्द्र कुमार श्रीवास्तव, मुकेश, दीपक, आशीष, शिवेश, आदर्श एवं समस्त श्रीवास्तव परिवार
+            </div>
+            <div>
+              <strong>स्वागताकांक्षी:</strong><br/>
+              श्री पवन कुमार श्रीवास्तव
+            </div>
+            <div>
+              <strong>विनीतः</strong><br/>
+              श्री जगदम्बा प्रसाद श्रीवास्तव, श्री मूलचन्द्र श्रीवास्तव<br/>
+              मोबाईल: <a href="tel:8009546843">8009546843</a>, <a href="tel:7619026526">7619026526</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Invitation Cards Downloads Section -->
+    <section class="section cards-section" id="cards">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div class="overline">The invitation suite</div>
+          <h2>Your Invitation Cards</h2>
+          <p>Tap a card to view in high resolution, or download it directly to keep as a keepsake.</p>
+        </div>
+
+        <div class="card-gallery">
+          <!-- Card 1: Shubh Vivah -->
+          <article class="card-tile reveal tilt-card">
+            <div class="shine-fx"></div>
+            <div class="card-tile-head">
+              <h3>शुभ विवाह निमंत्रण पत्र</h3>
+              <span class="small-label">Ashutosh &amp; Dipti</span>
+            </div>
+            <button class="card-image-button" type="button" onclick="openCard('gold')" aria-label="विवाह कार्ड बड़ा देखें">
+              <img id="goldCard" src="./assets/images/wedding-card1.png" alt="Shubh Vivah HD Invitation Card" loading="lazy"/>
+            </button>
+            <div class="tile-actions">
+              <button class="btn btn-gold" type="button" onclick="downloadCard('gold')">
+                📥 Download Card (HD)
+              </button>
+              <button class="btn btn-outline" type="button" onclick="openCard('gold')">
+                View Larger ↗
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 2: Preetibhoj & Bahubhoj -->
+          <article class="card-tile reveal tilt-card">
+            <div class="shine-fx"></div>
+            <div class="card-tile-head">
+              <h3>प्रीतिभोज पत्रिका</h3>
+              <span class="small-label">Preetibhoj Invitation</span>
+            </div>
+            <button class="card-image-button" type="button" onclick="openCard('celebrations')" aria-label="प्रीतिभोज कार्ड बड़ा देखें">
+              <img id="celebrationCard" src="./assets/images/preetbhoj-card1.png" alt="Preetibhoj Card" loading="lazy"/>
+            </button>
+            <div class="tile-actions">
+              <button class="btn btn-gold" type="button" onclick="downloadCard('celebrations')">
+                📥 Download Card (HD)
+              </button>
+              <button class="btn btn-outline" type="button" onclick="openCard('celebrations')">
+                View Larger ↗
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Digital Ashirwad & WhatsApp Wishes Section -->
+    <section class="section blessings-section" id="blessings">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div class="overline">डिजिटल आशीर्वाद पुस्तिका</div>
+          <h2>Send Your Warm Wishes</h2>
+          <p>वर-वधू को अपना स्नेह एवं शुभकामना संदेश प्रेषित करें</p>
+        </div>
+
+        <div class="blessings-card reveal">
+          <div class="blessings-form-side">
+            <h3>आशीर्वाद संदेश लिखें</h3>
+            <input type="text" id="guestName" placeholder="आपका शुभ नाम (Your Name)" required/>
+            <textarea id="guestMessage" rows="3" placeholder="वर-वधू हेतु आशीर्वाद एवं शुभकामनाएँ..."></textarea>
+            
+            <div class="form-btn-group">
+              <button class="btn btn-whatsapp" type="button" onclick="sendWhatsAppWish()">
+                💬 व्हाट्सएप पर सीधे बधाई भेजें
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Venue Map Section -->
+    <section class="venue-map-section" id="wedding-location" aria-labelledby="venue-map-title">
+      <div class="venue-map-inner reveal">
+        <div class="venue-map-ornament">✦ 卐 ✦</div>
+        <p class="venue-map-kicker">FIND YOUR WAY TO THE CELEBRATION</p>
+        <h2 id="venue-map-title">Family Event Venue</h2>
+        <p>
+          The wedding ceremony will be held here:<br/>
+          <strong>सूर्या मैरिज हॉल, अहिमाने, प्रयागराज रोड, सुलतानपुर (उ0प्र0)।</strong><br/>
+          मातृपूजन एवं प्रीतिभोज वर निवास स्थान (ग्राम व पोस्ट-बासूपुर) पर संपन्न होगा।
+        </p>
+        <a class="venue-map-button" 
+           href="https://www.google.com/maps/search/?api=1&query=Surya+Marriage+Hall+Sultanpur" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           aria-label="Find Surya Marriage Hall on Google Maps">
+          ⌖ &nbsp; Find Venue on Google Maps ↗
+        </a>
+        <div class="venue-map-ornament">✦ 卐 ✦</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Music Player Ribbon -->
+  <div class="floating-vinyl-player" id="vinylPlayer" onclick="toggleMantra()" title="Click to Play/Pause Aarti">
+    <div class="vinyl-disc" id="vinylDisc">
+      <div class="vinyl-groove"></div>
+      <div class="vinyl-center">ॐ</div>
+    </div>
+    <div class="vinyl-info">
+      <span>गणेश आरती</span>
+      <small id="vinylStatus">Paused</small>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-mark">卐</div>
+    <strong>You Are Warmly Invited</strong>
+    <p>Wedding celebrations of Ashutosh <span style="color:#d9b46c;">Weds</span> Dipti</p>
+    <p class="fineprint">॥ सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः ॥</p>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Image Lightbox Modal -->
+  <div class="modal" id="cardModal" role="dialog" aria-modal="true" aria-label="कार्ड का बड़ा दृश्य" onclick="modalBackdrop(event)">
+    <div class="modal-inner">
+      <button class="modal-close" type="button" onclick="closeCard()" aria-label="बंद करें">×</button>
+      <img id="modalImage" src="" alt="बड़ा निमंत्रण कार्ड"/>
+      <div class="modal-caption" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
